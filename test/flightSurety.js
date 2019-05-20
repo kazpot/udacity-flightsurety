@@ -74,11 +74,15 @@ contract('Flight Surety Tests', async (accounts) => {
     });
 
     it('(Data) After funding can register new airline', async function () {
+        await config.flightSuretyApp.registerAirline(accounts[2], {from:config.firstAirline});
+        let registered = await config.flightSuretyApp.airlineRegistered(accounts[2]);
+        assert(registered);
+
         let fee = await config.flightSuretyApp.REGISTRATION_FEE();
-        let registered = await config.flightSuretyData.isAirlineRegisterd(config.firstAirline);
         await config.flightSuretyApp.fund({from: config.firstAirline, value: fee});
-        let airline = await config.flightSuretyData.airlineProfiles(config.firstAirline);
-        assert(airline[1], 'Must be funded');
+
+        let funded = await config.flightSuretyApp.funded(config.firstAirline);
+        assert(funded, 'Must be funded');
     });
 
     it('(multiparty) Only first Airline can register an airline when less than 4 airlines are registered', async () => {

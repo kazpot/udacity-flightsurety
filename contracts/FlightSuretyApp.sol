@@ -187,6 +187,9 @@ contract FlightSuretyApp {
         return flightSuretyData.isAirlineRegisterd(airline);
     }
 
+    function funded(address airline) external view returns(bool){
+        return flightSuretyData.hasFunded(airline);
+    }
 
 // region ORACLE MANAGEMENT
 
@@ -295,6 +298,7 @@ contract FlightSuretyData {
     function pay(address originAddress) external;
     function fund(address originAddress) external payable;
     function isAirlineRegisterd(address originAddress) external view returns(bool);
+    function hasFunded(address airline) public view returns(bool);
     function creditInsurees(bytes32 flightKey) external;
 }
 
