@@ -24,6 +24,8 @@ contract FlightSuretyApp {
     uint8 private constant STATUS_CODE_LATE_TECHNICAL = 40;
     uint8 private constant STATUS_CODE_LATE_OTHER = 50;
 
+    uint256 public constant REGISTRATION_FEE = 10 ether;
+
     address private contractOwner;
     bool private operational = true;
 
@@ -174,6 +176,7 @@ contract FlightSuretyApp {
     }
 
     function fund() external requireIsOperational payable {
+        require(msg.value == REGISTRATION_FEE, "Registration fee is required");
         flightSuretyData.fund.value(msg.value)(msg.sender);
     }
 
@@ -188,7 +191,7 @@ contract FlightSuretyApp {
     uint8 private nonce = 0;    
 
     // Fee to be paid when registering oracle
-    uint256 public constant REGISTRATION_FEE = 1 ether;
+    uint256 public constant ORACLE_REGISTRATION_FEE = 1 ether;
 
     // Number of oracles that must respond for valid status
     uint256 private constant MIN_RESPONSES = 3;
@@ -214,7 +217,7 @@ contract FlightSuretyApp {
     mapping(bytes32 => ResponseInfo) private oracleResponses;
 
     function registerOracle() external payable {
-        require(msg.value >= REGISTRATION_FEE, "Registration fee is required");
+        require(msg.value >= ORACLE_REGISTRATION_FEE, "Registration fee is required");
         uint8[3] memory indexes = generateIndexes(msg.sender);
         oracles[msg.sender] = Oracle({isRegistered: true, indexes: indexes});
     }
