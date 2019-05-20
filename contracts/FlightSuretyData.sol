@@ -8,7 +8,6 @@ contract FlightSuretyData {
     /********************************************************************************************/
     /*                                       DATA VARIABLES                                     */
     /********************************************************************************************/
-    uint256 public constant REGISTRATION_FEE = 10 ether;
     uint public totalAirlines;
     address public firstAirline;
     bool public operational = true;
@@ -171,9 +170,6 @@ contract FlightSuretyData {
     function processFlightStatus(bytes32 flightKey, uint8 statusCode) external isFlightRegistered(flightKey) requireIsOperational isCallerAuthorized(msg.sender) notYetProcessed(flightKey) {
         Flight storage flight = flights[flightKey];
         flight.statusCode = statusCode;
-        if (statusCode == 20) {
-            creditInsurees(flightKey);
-        }
     }
 
    /**
@@ -192,8 +188,7 @@ contract FlightSuretyData {
     /**
      *  @dev Credits payouts to insurees
     */
-    function creditInsurees(bytes32 flightKey) internal requireIsOperational {
-        emit Credited(msg.sender, 0);
+    function creditInsurees(bytes32 flightKey) external requireIsOperational {
         Flight storage flight = flights[flightKey];
         for (uint i = 0; i < passengers.length; i++) {
            withdrawals[passengers[i]] = flight.insurances[passengers[i]];
@@ -219,7 +214,6 @@ contract FlightSuretyData {
     *
     */   
     function fund(address originAddress) public requireIsOperational payable {
-        require(msg.value == REGISTRATION_FEE, "Registration fee is required");
         require(airlineProfiles[originAddress].registered, "Must be registered to raise fund");
         airlineProfiles[originAddress].funded = true;
         emit Funded(originAddress);

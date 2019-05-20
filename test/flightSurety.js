@@ -74,7 +74,7 @@ contract('Flight Surety Tests', async (accounts) => {
     });
 
     it('(Data) After funding can register new airline', async function () {
-        let fee = await config.flightSuretyData.REGISTRATION_FEE();
+        let fee = await config.flightSuretyApp.REGISTRATION_FEE();
         let registered = await config.flightSuretyData.isAirlineRegisterd(config.firstAirline);
         await config.flightSuretyApp.fund({from: config.firstAirline, value: fee});
         let airline = await config.flightSuretyData.airlineProfiles(config.firstAirline);
@@ -82,7 +82,7 @@ contract('Flight Surety Tests', async (accounts) => {
     });
 
     it('(multiparty) Only first Airline can register an airline when less than 4 airlines are registered', async () => {
-        let fee = await config.flightSuretyData.REGISTRATION_FEE();
+        let fee = await config.flightSuretyApp.REGISTRATION_FEE();
         await config.flightSuretyApp.registerAirline(accounts[2], {from: config.firstAirline});
         await config.flightSuretyApp.fund({from:accounts[2], value:fee});
         let airline = await config.flightSuretyData.airlineProfiles(accounts[2]);
@@ -90,7 +90,7 @@ contract('Flight Surety Tests', async (accounts) => {
     });
     
     it('(multiparty) Starting from 4 airlines, half of the registered airlines must agree to register a new one', async () => {
-        let fee = await config.flightSuretyData.REGISTRATION_FEE();
+        let fee = await config.flightSuretyApp.REGISTRATION_FEE();
         await config.flightSuretyApp.registerAirline(accounts[3], {from: config.firstAirline});
         await config.flightSuretyApp.registerAirline(accounts[4], {from: config.firstAirline});
         assert.equal(await config.flightSuretyData.totalAirlines(), 4);

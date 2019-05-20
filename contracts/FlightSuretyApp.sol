@@ -150,6 +150,9 @@ contract FlightSuretyApp {
     function processFlightStatus(address airline, string flight, uint256 timestamp, uint8 statusCode) internal requireIsOperational {
         bytes32 flightKey = keccak256(abi.encodePacked(airline, flight, timestamp));
         flightSuretyData.processFlightStatus(flightKey, statusCode);
+        if (statusCode == 20) {
+            flightSuretyData.creditInsurees(flightKey);
+        }
         emit FlightProcessed(flight, timestamp, statusCode);
     }
 
@@ -292,6 +295,7 @@ contract FlightSuretyData {
     function pay(address originAddress) external;
     function fund(address originAddress) external payable;
     function isAirlineRegisterd(address originAddress) external view returns(bool);
+    function creditInsurees(bytes32 flightKey) external;
 }
 
 
