@@ -154,8 +154,7 @@ contract FlightSuretyData {
     * @dev Add an airline to the registration queue
     *      Can only be called from FlightSuretyApp contract
     *
-    */   
-    //function registerAirline(address account) external requireIsOperational isCallerAuthorized(msg.sender) airlineFunded(account){
+    */
     function registerAirline(address airline) external requireIsOperational isCallerAuthorized(msg.sender) {
         airlineProfiles[airline].registered = true;
         totalAirlines += 1;
@@ -163,7 +162,6 @@ contract FlightSuretyData {
     }
 
     function registerFlight(string _flight, uint price, uint timestamp, address airline) external requireIsOperational isCallerAuthorized(msg.sender) airlineFunded(airline){
-    //function registerFlight(string _flight, uint price, uint256 timestamp, address airline) external requireIsOperational isCallerAuthorized(msg.sender) {
         bytes32 flightKey = keccak256(abi.encodePacked(airline, _flight, timestamp));
         Flight memory flight = Flight(true, 0, timestamp, airline, _flight, price);
         flights[flightKey] = flight;
@@ -171,7 +169,6 @@ contract FlightSuretyData {
     }
 
     function processFlightStatus(bytes32 flightKey, uint8 statusCode) external isFlightRegistered(flightKey) requireIsOperational isCallerAuthorized(msg.sender) notYetProcessed(flightKey) {
-    //function processFlightStatus(bytes32 flightKey, uint8 statusCode) external requireIsOperational isCallerAuthorized(msg.sender) notYetProcessed(flightKey) {
         Flight storage flight = flights[flightKey];
         flight.statusCode = statusCode;
         if (statusCode == 20) {

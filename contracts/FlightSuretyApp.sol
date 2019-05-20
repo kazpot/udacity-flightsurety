@@ -177,7 +177,7 @@ contract FlightSuretyApp {
         flightSuretyData.fund.value(msg.value)(msg.sender);
     }
 
-    function airlineRegistered(address airline) external returns(bool){
+    function airlineRegistered(address airline) external view returns(bool){
         return flightSuretyData.isAirlineRegisterd(airline);
     }
 

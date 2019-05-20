@@ -8,7 +8,6 @@ module.exports = function (deployer, network, accounts) {
   let firstAirline = accounts[1]
   deployer.deploy(FlightSuretyData, firstAirline)
     .then(instance => {
-      // get the deployed instance of flightSuretyData
       flightSuretyData = instance
       return deployer.deploy(FlightSuretyApp, FlightSuretyData.address)
         .then(instance => {
