@@ -3,8 +3,10 @@
 FlightSurety is a sample dApp runnning over Ethereum blockchain.
 
 ## Version
-`Truffle v5.0.2 (core: 5.0.2)`
+`Truffle v5.0.8 (core: 5.0.8)`
 `Solidity - ^0.4.24 (solc-js)`
+`Node v11.8.0`
+`Web3.js v1.0.0-beta.37`
 
 ## Descriptions
 * Requirement 1: Separation of concerns
