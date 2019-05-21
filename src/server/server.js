@@ -29,7 +29,7 @@ const Server = {
           })
           .on('data', async log => {
               let result = log.returnValues;
-              console.log(`airline registered: ${result.airline}, flight: ${result.flight}, timestamp: ${result.timestamp}`)
+              console.log(`Oracle Request => ${result.airline}, flight: ${result.flight}, timestamp: ${result.timestamp}`)
               await Server.submitResponses(result.airline, result.flight, result.timestamp);
           });
 
@@ -63,8 +63,7 @@ const Server = {
          flightSuretyData.events.Paid()
              .on('data', log => {
                  let result = log.returnValues;
-                 console.log(result);
-                 //console.log(`${result.airline} has been registered`);
+                 console.log(`Paid => recipient: ${result.recipient}, amount: ${result.amount}`);
              })
              .on('error', error => { 
                   console.log(error);
@@ -91,17 +90,16 @@ const Server = {
          flightSuretyApp.events.OracleReport()
              .on('data', log => {
                  let result = log.returnValues;
-                 console.log(`oracle report =>  airline: ${result.airline}, flight: ${result.flight}, timestamp: ${result.timestamp}, status: ${result.status}`);
+                 //console.log(`oracle report =>  airline: ${result.airline}, flight: ${result.flight}, timestamp: ${result.timestamp}, status: ${result.status}`);
              })
              .on('error', error => { 
-                  console.log(error);
+                  //console.log(error);
              });
 
          flightSuretyApp.events.WithdrawRequest()
              .on('data', log => {
                  let result = log.returnValues;
-                 console.log(result);
-                 //console.log(`${result.airline} has been registered`);
+                 console.log(`WithdrawRequest => recipient: ${result.recipient}`);
              })
              .on('error', error => { 
                   console.log(error);
@@ -110,7 +108,7 @@ const Server = {
          flightSuretyApp.events.FlightProcessed()
              .on('data', log => {
                  let result = log.returnValues;
-                 console.log(`${result.flight},  ${result.timestamp}, ${result.statusCode} has been processed`);
+                 console.log(`FlightProcessed => airline: ${result.flight},  flight: ${result.timestamp}, statusCode: ${result.statusCode}`);
              })
              .on('error', error => { 
                   console.log(error);
@@ -133,14 +131,15 @@ const Server = {
 
     submitResponses: async (airline, flight, timestamp) => {
          let accounts = await web3.eth.getAccounts();
+         let statusCode = (Math.floor(Math.random() * 5) + 1) * 10;
+         //let statusCode = 20;
          accounts.forEach(async account => {
-             const statusCode = (Math.floor(Math.random() * 5) + 1) * 10
-             const oracleIndexes = await flightSuretyApp.methods.getMyIndexes().call({from:account});
+             let oracleIndexes = await flightSuretyApp.methods.getMyIndexes().call({from:account});
              oracleIndexes.forEach(async index => {
                  try { 
-                     await flightSuretyApp.methods.submitOracleResponse(index, airline, flight, +timestamp, statusCode).send({from:account});
-                 } catch (error) {
-                     console.log(error.message);
+                     await flightSuretyApp.methods.submitOracleResponse(index, airline, flight, +timestamp, statusCode).send({from:account, gas: 4712388, gasPrice: 100000000000});
+                 }catch (error) {
+                     //console.log(error.message);
                  }
              })
          })

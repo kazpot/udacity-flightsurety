@@ -11,7 +11,9 @@ import './flightsurety.css';
     let contract = new Contract('localhost', () => {
 
         contract.isOperational((error, result) => {
-            console.log(error,result);
+            if (error) {
+                console.log(error);
+            }
             display('Operational Status', 'Check if contract is operational', [ { label: 'Operational Status', error: error, value: result} ]);
         });
 
@@ -19,7 +21,6 @@ import './flightsurety.css';
             let airlineAddress = DOM.elid('airline-address').value;
             contract.registerAirline(airlineAddress, (error, result) => {
                 display('Airline', 'Register Airline', [ { label: 'Register Airline', error: error, value: 'success'} ]);
-                console.log(result);
             });
         });
 
@@ -62,7 +63,8 @@ import './flightsurety.css';
         });
 
         DOM.elid('claim').addEventListener('click', () => {
-            contract.withdraw((error, result) => {
+            let originAddress = DOM.elid('claim-address').value;
+            contract.withdraw(originAddress, (error, result) => {
                 display('Oracles', 'Withdraw request', [ { label: 'Withdraw request', error: error, value: 'success'} ]);
             });
         });

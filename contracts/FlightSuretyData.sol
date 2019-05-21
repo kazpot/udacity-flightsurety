@@ -27,12 +27,11 @@ contract FlightSuretyData {
         bool registered;
         uint8 statusCode;
         uint256 timestamp;
-        address airline;
-        string flight;
+        address airlineAddress;
+        string flightNumber;
         uint price;
         mapping(address => bool) bookings;
         mapping(address => uint) insurances;
-
     }
 
     mapping(address => UserProfile) public userProfiles;
@@ -160,11 +159,15 @@ contract FlightSuretyData {
         emit AirlineRegistered(airline);
     }
 
-    function registerFlight(string _flight, uint price, uint timestamp, address airline) external requireIsOperational isCallerAuthorized(msg.sender) airlineFunded(airline){
-        bytes32 flightKey = keccak256(abi.encodePacked(airline, _flight, timestamp));
-        Flight memory flight = Flight(true, 0, timestamp, airline, _flight, price);
-        flights[flightKey] = flight;
-        emit FlightRegistered(airline, _flight, timestamp, price);
+    function registerFlight(string _flight, uint _price, uint256 _timestamp, address originAddress) external requireIsOperational isCallerAuthorized(msg.sender) airlineFunded(originAddress){        
+        bytes32 flightKey = keccak256(abi.encodePacked(originAddress, _flight, _timestamp));
+        flights[flightKey].registered = true;
+        flights[flightKey].statusCode = 0;
+        flights[flightKey].timestamp = _timestamp;
+        flights[flightKey].price = _price;
+        flights[flightKey].flightNumber = _flight;
+        flights[flightKey].airlineAddress = originAddress;
+        emit FlightRegistered(originAddress, _flight, _timestamp, _price);
     }
 
     function processFlightStatus(bytes32 flightKey, uint8 statusCode) external isFlightRegistered(flightKey) requireIsOperational isCallerAuthorized(msg.sender) notYetProcessed(flightKey) {
@@ -181,7 +184,7 @@ contract FlightSuretyData {
         flight.bookings[originAddress] = true;
         flight.insurances[originAddress] = amount;
         passengers.push(originAddress);
-        withdrawals[flight.airline] = flight.price;
+        withdrawals[flight.airlineAddress] = flight.price;
         emit BoughtTicket(originAddress, amount);
     }
 
@@ -191,8 +194,8 @@ contract FlightSuretyData {
     function creditInsurees(bytes32 flightKey) external requireIsOperational {
         Flight storage flight = flights[flightKey];
         for (uint i = 0; i < passengers.length; i++) {
-           withdrawals[passengers[i]] = flight.insurances[passengers[i]];
-           emit Credited(passengers[i], flight.insurances[passengers[i]]);
+            withdrawals[passengers[i]] = flight.insurances[passengers[i]];
+            emit Credited(passengers[i], flight.insurances[passengers[i]]);
         }
     }
 

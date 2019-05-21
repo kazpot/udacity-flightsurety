@@ -20,10 +20,13 @@
     </nav>
 
     <main class="container">
-
         <div id="display-wrapper" class="top-20"></div>
+
         <div class="row top-20">
-            <label class="form">Register Airline</label>
+            <label class="form">1. Register Airline</label>
+        </div>
+        <div class="row top-20">
+            <label for="airline-address">Airline Address</label>
             <input type="text" id="airline-address">
         </div>
         <div class="row top-20">
@@ -31,7 +34,10 @@
         </div>
 
         <div class="row top-20">
-            <label class="form">Airline Registered?</label>
+            <label class="form">Check Registration(Option)</label>
+        </div>
+        <div class="row top-20">
+            <label for="check-address">Airline Address</label>
             <input type="text" id="check-address">
         </div>
         <div class="row top-20">
@@ -39,11 +45,20 @@
         </div>
 
         <div class="row top-20">
+            <label class="form">2. Funding</label>
+        </div>
+        <div class="row top-20">
+            <label>Provide 10 Ether</label>
+        </div>
+        <div class="row top-20">
             <btn class="btn btn-primary" id="submit-fund">Submit Fund</btn>
         </div>
 
         <div class="row top-20">
-            <label class="form">Register Flight</label> 
+            <label class="form">3. Register Flight</label>
+        </div>
+        <div class="row top-20">
+            <label for="flight">Flight Number</label>
             <input type="text" id="flight">
         </div>
         <div class="row top-20">
@@ -51,7 +66,10 @@
         </div>
 
         <div class="row top-20">
-            <label class="form">Buy Flight Ticket</label> 
+            <label class="form">4. Buy Flight Ticket</label>
+        </div>
+        <div class="row top-20">
+            <label for="flight-ticket">Flight Number</label>
             <input type="text" id="flight-ticket">
         </div>
         <div class="row top-20">
@@ -59,7 +77,10 @@
         </div>
 
         <div class="row top-20">
-            <label class="form">Fetch Fligh Status</label> 
+            <label class="form">5. Fetch Fligh Status</label>
+        </div>
+        <div class="row top-20">
+            <label for="flight-number">Flight Number</label>
             <input type="text" id="flight-number">
         </div>
         <div class="row top-20">
@@ -67,7 +88,14 @@
         </div>
 
         <div class="row top-20">
-            <label class="form">Claim by passenger</label> 
+            <label class="form">6. Claim Insurance</label>
+        </div>
+        <div class="row top-20">
+            <label for="claim">Withdraw insurance credits</label>
+        </div>
+        <div class="row top-20">
+            <label for="claim-address">Passenger/Airline Address</label>
+            <input type="text" id="claim-address">
         </div>
         <div class="row top-20">
            <btn class="btn btn-primary" id="claim">Claim</btn>

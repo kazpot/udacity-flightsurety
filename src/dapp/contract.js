@@ -20,6 +20,7 @@ export default class Contract {
            
             this.owner = accts[0];
             this.firstAirline = accts[1];
+            this.passenger = accts[2];
 
             let counter = 1;
             
@@ -31,7 +32,13 @@ export default class Contract {
                 this.passengers.push(accts[counter++]);
             }
 
-            this.flightSuretyApp.methods.registerAirline(this.firstAirline).send({from: self.firstAirline}, (error, result) => {});
+            this.flightSuretyApp.methods
+                .registerAirline(this.firstAirline)
+                .send({from: this.firstAirline}, (error, result) => {
+                    if (error) {
+                        console.log(error);
+                    }
+                });
 
             callback();
         });
@@ -47,7 +54,7 @@ export default class Contract {
     registerAirline(address, callback) {
         let self = this;
         self.flightSuretyApp.methods
-            .airlineRegistered(address)
+            .registerAirline(address)
             .send({from: self.firstAirline}, (error, result) => {
                 callback(error, result);
             });
@@ -57,7 +64,7 @@ export default class Contract {
         let self = this;
         self.flightSuretyApp.methods
             .airlineRegistered(address)
-            .call({from: self.owner}, callback);
+            .call({from: self.firstAirline}, callback);
     }
 
     submitFund(callback) {
@@ -77,7 +84,7 @@ export default class Contract {
         let self = this;
         self.flightSuretyApp.methods
             .registerFlight(flight, price, timestamp)
-            .send({from: self.owner}, (error, result) => {
+            .send({from: self.firstAirline, gas: "220000"}, (error, result) => {
                 callback(error, result);
             });
     }
@@ -91,16 +98,16 @@ export default class Contract {
         let self = this;
         self.flightSuretyApp.methods
             .buy(self.firstAirline, flight, timestamp, price)
-            .send({from: self.owner}, (error, result) => {
+            .send({from: self.passenger, gas: "220000"}, (error, result) => {
                 callback(error, result);
             });
     }
 
-    withdraw(callback) {
+    withdraw(originAddress, callback) {
         let self = this;
         self.flightSuretyApp.methods
             .withdraw()
-            .send({from: self.owner}, (error, result) => {
+            .send({from: originAddress, gas: "220000"}, (error, result) => {
                 callback(error, result);
             });
     }
