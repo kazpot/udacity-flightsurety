@@ -199,6 +199,10 @@ contract FlightSuretyData {
         }
     }
 
+    function getCreditByPassenger(address originAddress) external view returns (uint) {
+        return withdrawals[originAddress];
+    }
+
     /**
      *  @dev Transfers eligible payout funds to insuree
      *

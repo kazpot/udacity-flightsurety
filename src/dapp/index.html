@@ -23,7 +23,7 @@
         <div id="display-wrapper" class="top-20"></div>
 
         <div class="row top-20">
-            <label class="form">1. Register Airline</label>
+            <label class="form">Register Other Airline (Option)</label>
         </div>
         <div class="row top-20">
             <label for="airline-address">Airline Address (ex: 0x799759c45265B96cac16b88A7084C068d38aFce9)</label>
@@ -45,57 +45,83 @@
         </div>
 
         <div class="row top-20">
-            <label class="form">2. Funding</label>
+            <label class="form">1. Funding</label>
         </div>
         <div class="row top-20">
-            <label>Provide 10 Ether</label>
+            <label>Please provide 10 Ether to register a new flight</label>
         </div>
         <div class="row top-20">
             <btn class="btn btn-primary" id="submit-fund">Submit Fund</btn>
         </div>
 
         <div class="row top-20">
-            <label class="form">3. Register Flight</label>
+            <label class="form">2. Register Flight</label>
         </div>
         <div class="row top-20">
-            <label for="flight">Flight Number (ex: ANA001)</label>
-            <input type="text" id="flight">
+            <label for="flight">Select flight Number</label>
+        </div>
+        <div class="row top-20">
+            <select id="flight-select" class="selectpicker">
+              <option value="ANA001">ANA001 => Airline:ANA, Date:1558232053, Tokyo -> Beijing </option>
+              <option value="ANA002">ANA002 => Airline:ANA, Date:1558232053, Tokyo -> Soul </option>
+              <option value="ANA003">ANA003 => Airline:ANA, Date:1558232053, Tokyo -> Macau </option>
+            </select>
         </div>
         <div class="row top-20">
            <btn class="btn btn-primary" id="register-flight">Register Flight</btn>
         </div>
 
         <div class="row top-20">
-            <label class="form">4. Buy Flight Ticket</label>
+            <label class="form">3. Buy Flight Ticket</label>
         </div>
         <div class="row top-20">
-            <label for="flight-ticket">Flight Number (ex: ANA001)</label>
-            <input type="text" id="flight-ticket">
+            <label for="flight-ticket">Please select Flight Number</label>
+        </div>
+        <div class="row top-20">
+            <select id="flight-select" class="selectpicker">
+              <option value="ANA001">ANA001 => Airline:ANA, Date:1558232053, Tokyo -> Beijing </option>
+              <option value="ANA002">ANA002 => Airline:ANA, Date:1558232053, Tokyo -> Soul </option>
+              <option value="ANA003">ANA003 => Airline:ANA, Date:1558232053, Tokyo -> Macau </option>
+            </select>
         </div>
         <div class="row top-20">
            <btn class="btn btn-primary" id="buy-flight">Buy</btn>
         </div>
 
         <div class="row top-20">
-            <label class="form">5. Fetch Fligh Status</label>
+            <label class="form">4. Request Fligh Status</label>
         </div>
         <div class="row top-20">
-            <label for="flight-number">Flight Number (ex: ANA001)</label>
-            <input type="text" id="flight-number">
+            <label for="flight-number">Please select Flight Number</label>
+        </div>
+        <div class="row top-20">
+            <select id="flight-select" class="selectpicker">
+              <option value="ANA001">ANA001 => Airline:ANA, Date:1558232053, Tokyo -> Beijing </option>
+              <option value="ANA002">ANA002 => Airline:ANA, Date:1558232053, Tokyo -> Soul </option>
+              <option value="ANA003">ANA003 => Airline:ANA, Date:1558232053, Tokyo -> Macau </option>
+            </select>
         </div>
         <div class="row top-20">
            <btn class="btn btn-primary" id="submit-oracle">Submit to Oracles</btn>
         </div>
 
         <div class="row top-20">
-            <label class="form">6. Claim Insurance</label>
+            <label class="form">5. Claim Insurance</label>
         </div>
         <div class="row top-20">
-            <label for="claim">Withdraw insurance credits</label>
+            <label for="claim">Check if you have credits (ETH)</label>:<label id="credit-value"></label>
         </div>
         <div class="row top-20">
-            <label for="claim-address">Passenger Address (ex: 0xC5fdf4076b8F3A5357c5E395ab970B5B54098Fef)</label>
-            <input type="text" id="claim-address">
+           <btn class="btn btn-primary" id="check-credit">Check</btn>
+        </div>
+        <div class="row top-20">
+            <label for="claim">Check your current balance (ETH)</label>:<label id="balance-value"></label>
+        </div>
+       <div class="row top-20">
+           <btn class="btn btn-primary" id="check-balance">Check</btn>
+        </div>
+        <div class="row top-20">
+            <label for="claim">In case of flight delay, passengers get 1.5x the insurance fee paid at buying ticket</label>
         </div>
         <div class="row top-20">
            <btn class="btn btn-primary" id="claim">Claim</btn>

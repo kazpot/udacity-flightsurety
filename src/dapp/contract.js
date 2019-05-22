@@ -112,6 +112,22 @@ export default class Contract {
             });
     }
 
+    getCredit(originAddress, callback) {
+        let self = this;
+        self.flightSuretyApp.methods
+            .getCredit(originAddress)
+            .call({from: originAddress, gas: "220000"}, (error, result) => {
+                callback(error, self.web3.utils.fromWei(result));
+            });
+    }
+
+    getBalance(originAddress, callback) {
+        let self = this;
+        self.web3.eth.getBalance(originAddress, (error, result) => {
+            callback(error, self.web3.utils.fromWei(result));
+        });
+    }
+
     fetchFlightStatus(flight, callback) {
         let self = this;
         let payload = {

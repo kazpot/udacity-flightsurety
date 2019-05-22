@@ -38,34 +38,47 @@ import './flightsurety.css';
         });
 
         DOM.elid('register-flight').addEventListener('click', () => {
-            let flight = DOM.elid('flight').value;
+            let index = DOM.elid('flight-select').selectedIndex;
+            let flight = DOM.elid('flight-select').options[index].text;
             contract.registerFlight(flight, (error, result) => {
-                console.log(error);
-                console.log(result);
                 display('Airline', 'Register Flight', [ { label: 'Register Flight', error: error, value: 'success'} ]);
             });
         });
 
         DOM.elid('buy-flight').addEventListener('click', () => {
-            let flight = DOM.elid('flight-ticket').value;
+            let index = DOM.elid('flight-select').selectedIndex;
+            let flight = DOM.elid('flight-select').options[index].text;
             contract.buyTicket(flight, (error, result) => {
-                console.log(error);
-                console.log(result);
                 display('Airline', 'Buy Ticket', [ { label: 'Buy Ticket', error: error, value: 'success'} ]);
             });
         });
     
         DOM.elid('submit-oracle').addEventListener('click', () => {
-            let flight = DOM.elid('flight-number').value;
+            let index = DOM.elid('flight-select').selectedIndex;
+            let flight = DOM.elid('flight-select').options[index].text;
             contract.fetchFlightStatus(flight, (error, result) => {
                 display('Oracles', 'Trigger oracles', [ { label: 'Fetch Flight Status', error: error, value: result.flight + ' ' + result.timestamp} ]);
             });
         });
 
         DOM.elid('claim').addEventListener('click', () => {
-            let originAddress = DOM.elid('claim-address').value;
+            let originAddress = '0xC5fdf4076b8F3A5357c5E395ab970B5B54098Fef'; // passenger address
             contract.withdraw(originAddress, (error, result) => {
                 display('Oracles', 'Withdraw request', [ { label: 'Withdraw request', error: error, value: 'success'} ]);
+            });
+        });
+
+        DOM.elid('check-credit').addEventListener('click', () => {
+            let originAddress = '0xC5fdf4076b8F3A5357c5E395ab970B5B54098Fef'; // passenger address
+            contract.getCredit(originAddress, (error, result) => {
+                DOM.elid('credit-value').innerHTML = result;
+            });
+        });
+
+        DOM.elid('check-balance').addEventListener('click', () => {
+            let originAddress = '0xC5fdf4076b8F3A5357c5E395ab970B5B54098Fef'; // passenger address
+            contract.getBalance(originAddress, (error, result) => {
+                DOM.elid('balance-value').innerHTML = result;
             });
         });
     });

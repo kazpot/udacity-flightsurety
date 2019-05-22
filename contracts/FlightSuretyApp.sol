@@ -189,6 +189,10 @@ contract FlightSuretyApp {
         return flightSuretyData.hasFunded(airline);
     }
 
+    function getCredit(address passenger) external view returns(uint) {
+        return flightSuretyData.getCreditByPassenger(passenger);
+    }
+
 // region ORACLE MANAGEMENT
 
     // Incremented to add pseudo-randomness at various points
@@ -298,6 +302,7 @@ contract FlightSuretyData {
     function isAirlineRegisterd(address originAddress) external view returns(bool);
     function hasFunded(address airline) public view returns(bool);
     function creditInsurees(bytes32 flightKey) external;
+    function getCreditByPassenger(address originAddress) external view returns (uint);
 }
 
 
