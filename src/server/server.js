@@ -131,8 +131,8 @@ const Server = {
 
     submitResponses: async (airline, flight, timestamp) => {
          let accounts = await web3.eth.getAccounts();
-         //let statusCode = (Math.floor(Math.random() * 5) + 1) * 10;
-         let statusCode = 20;
+         let statusCode = (Math.floor(Math.random() * 5) + 1) * 10;
+         //let statusCode = 20;
          accounts.forEach(async account => {
              let oracleIndexes = await flightSuretyApp.methods.getMyIndexes().call({from:account});
              oracleIndexes.forEach(async index => {
