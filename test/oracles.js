@@ -1,6 +1,5 @@
-
-var Test = require('../config/testConfig.js');
-//var BigNumber = require('bignumber.js');
+const Test = require('../config/testConfig.js');
+const truffleAssert = require('truffle-assertions')
 
 contract('Oracles', async (accounts) => {
 
@@ -17,6 +16,7 @@ contract('Oracles', async (accounts) => {
     
     before('setup contract', async () => {
         config = await Test.Config(accounts);
+        await config.flightSuretyData.authorizeCaller(config.flightSuretyApp.address);
     });
 
     it('can register oracles', async () => {
@@ -31,38 +31,32 @@ contract('Oracles', async (accounts) => {
     it('can request flight status', async () => {
         let flight = 'ND1309';
         let timestamp = Math.floor(Date.now() / 1000);
+        let price = web3.utils.toWei('0.5', 'ether');
+
+        let fee = await config.flightSuretyApp.REGISTRATION_FEE();
+        await config.flightSuretyApp.fund({from: config.firstAirline, value: fee});
+        await config.flightSuretyApp.registerFlight(flight, price, timestamp, {from: accounts[1]});
 
         for(let i=1; i < TEST_ORACLES_COUNT; i++) {
-            await config.flightSuretyApp.fetchFlightStatus(accounts[i], flight, timestamp);
-
-            var event = config.flightSuretyApp.OracleRequest();
-            var random;
-            await event.watch((err, res) => {
-                console.log("===OracleRequest===");
-                console.log(res.args);
-            })
+            const result = await config.flightSuretyApp.fetchFlightStatus(accounts[i], flight, timestamp);
+            truffleAssert.eventEmitted(result, 'OracleRequest', ev => {
+                console.log(`OracleRequest ${ev.airline}, ${ev.flight}, ${ev.timestamp}, ${ev.isOpen}`);
+                return ev.airline === accounts[i] && ev.flight == 'ND1309' && ev.timestamp == timestamp && ev.isOpen;
+            });
 
             let oracleIndexes = await config.flightSuretyApp.getMyIndexes.call({from: accounts[i]});
             
             for(let j=0; j < 3; j++) {
                 try {
-                    await config.flightSuretyApp.submitOracleResponse(oracleIndexes[j], config.firstAirline, flight, timestamp, STATUS_CODE_ON_TIME, {from: accounts[i]});
+                    const result = await config.flightSuretyApp.submitOracleResponse(oracleIndexes[j], config.firstAirline, flight, timestamp, STATUS_CODE_ON_TIME, {from: accounts[i]});
                     
-                    var event = config.flightSuretyApp.OracleReport();
-                    await event.watch((err, res) => {
-                        console.log("===OracleReport===");
-                        console.log(res.args);
-                    })
-
-                    var event = config.flightSuretyApp.FlightStatusInfo();
-                    await event.watch((err, res) => {
-                        console.log("===FlightStatusInfo===");
-                        console.log(res.args);
-                    })
+                    truffleAssert.eventEmitted(result, 'OracleReport', ev => {
+                        console.log(`OracleReport ${ev.airline}, ${ev.flight}, ${ev.timestamp}, ${ev.status}`);
+                        return ev.airline === accounts[i] && ev.flight == 'ND1309' && ev.timestamp == timestamp && ev.status == STATUS_CODE_ON_TIME;
+                    });
                 }
                 catch(e) {
-                    console.log(e.message);
-                    console.log('\nError', j, oracleIndexes[j].toNumber(), flight, timestamp);
+                    
                 }
             }
         }

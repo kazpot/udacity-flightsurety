@@ -78,7 +78,7 @@ export default class Contract {
     }
 
     registerFlight(flight, callback) {
-        let price = web3.toWei('0.5', 'ether');
+        let price = web3.utils.toWei('0.5', 'ether');
         let timestamp = 1558232053;
 
         let self = this;
@@ -93,7 +93,7 @@ export default class Contract {
         let timestamp = 1558232053;
         
         // 0.5 for ticket pice and 0.1 for insurance
-        let price = web3.toWei('0.6', 'ether');
+        let price = web3.utils.toWei('0.6', 'ether');
 
         let self = this;
         self.flightSuretyApp.methods
