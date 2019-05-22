@@ -73,6 +73,14 @@ To build dapp for prod:
 
 Deploy the contents of the ./dapp folder
 
+## Instructions (Airline)
+1. Airline funds 10 ETH to register a new flight
+2. Airline registers flight so that passengers buy tickets
+
+## Instructions (Passenger)
+1. Select the ticket from selection box and buy
+2. Check flight status. If the flight is delayed, you can get 1.5x insurance fee for credit
+3. YOu can withdraw credited amount
 
 ## Resources
 
