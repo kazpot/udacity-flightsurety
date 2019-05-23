@@ -68,13 +68,13 @@
               <option value="ANA001">ANA001 => Airline:ANA, Date:1558232053, Tokyo -> Beijing </option>
               <option value="ANA002">ANA002 => Airline:ANA, Date:1558232053, Tokyo -> Soul </option>
               <option value="ANA003">ANA003 => Airline:ANA, Date:1558232053, Tokyo -> Macau </option>
-              <option value="ANA003">ANA004 => Airline:ANA, Date:1558232053, Tokyo -> HongKong </option>
-              <option value="ANA003">ANA005 => Airline:ANA, Date:1558232053, Tokyo -> Manila </option>
-              <option value="ANA003">ANA006 => Airline:ANA, Date:1558232053, Tokyo -> Bangkok </option>
-              <option value="ANA003">ANA007 => Airline:ANA, Date:1558232053, Tokyo -> Kuala Lumpur</option>
-              <option value="ANA003">ANA008 => Airline:ANA, Date:1558232053, Tokyo -> Paris </option>
-              <option value="ANA003">ANA009 => Airline:ANA, Date:1558232053, Tokyo -> London </option>
-              <option value="ANA003">ANA010 => Airline:ANA, Date:1558232053, Tokyo -> Palau </option>
+              <option value="ANA004">ANA004 => Airline:ANA, Date:1558232053, Tokyo -> HongKong </option>
+              <option value="ANA005">ANA005 => Airline:ANA, Date:1558232053, Tokyo -> Manila </option>
+              <option value="ANA006">ANA006 => Airline:ANA, Date:1558232053, Tokyo -> Bangkok </option>
+              <option value="ANA007">ANA007 => Airline:ANA, Date:1558232053, Tokyo -> Kuala Lumpur</option>
+              <option value="ANA008">ANA008 => Airline:ANA, Date:1558232053, Tokyo -> Paris </option>
+              <option value="ANA009">ANA009 => Airline:ANA, Date:1558232053, Tokyo -> London </option>
+              <option value="ANA010">ANA010 => Airline:ANA, Date:1558232053, Tokyo -> Palau </option>
             </select>
         </div>
         <div class="row top-20">
@@ -85,27 +85,39 @@
             <label class="form">=====PASSENGERS=====</label>
         </div>
         <div class="row top-20">
-            <label class="form">1. Buy Flight Ticket</label>
+            <label class="form">1. Book Flight</label>
         </div>
         <div class="row top-20">
-            <label for="flight-ticket">Please select Flight Number</label>
+            Choose insurance amount (0.1 - 1.0ETH): 
+            <select id="insurance-select" class="selectpicker">
+              <option value="0.1">0.1</option>
+              <option value="0.2">0.2</option>
+              <option value="0.3">0.3</option>
+              <option value="0.4">0.4</option>
+              <option value="0.5">0.5</option>
+              <option value="0.6">0.6</option>
+              <option value="0.7">0.7</option>
+              <option value="0.8">0.8</option>
+              <option value="0.9">0.9</option>
+              <option value="1.0">1.0</option>
+            </select>
         </div>
         <div class="row top-20">
             <select id="flight-select" class="selectpicker">
               <option value="ANA001">ANA001 => Airline:ANA, Date:1558232053, Tokyo -> Beijing </option>
               <option value="ANA002">ANA002 => Airline:ANA, Date:1558232053, Tokyo -> Soul </option>
               <option value="ANA003">ANA003 => Airline:ANA, Date:1558232053, Tokyo -> Macau </option>
-              <option value="ANA003">ANA004 => Airline:ANA, Date:1558232053, Tokyo -> HongKong </option>
-              <option value="ANA003">ANA005 => Airline:ANA, Date:1558232053, Tokyo -> Manila </option>
-              <option value="ANA003">ANA006 => Airline:ANA, Date:1558232053, Tokyo -> Bangkok </option>
-              <option value="ANA003">ANA007 => Airline:ANA, Date:1558232053, Tokyo -> Kuala Lumpur</option>
-              <option value="ANA003">ANA008 => Airline:ANA, Date:1558232053, Tokyo -> Paris </option>
-              <option value="ANA003">ANA009 => Airline:ANA, Date:1558232053, Tokyo -> London </option>
-              <option value="ANA003">ANA010 => Airline:ANA, Date:1558232053, Tokyo -> Palau </option>
+              <option value="ANA004">ANA004 => Airline:ANA, Date:1558232053, Tokyo -> HongKong </option>
+              <option value="ANA005">ANA005 => Airline:ANA, Date:1558232053, Tokyo -> Manila </option>
+              <option value="ANA006">ANA006 => Airline:ANA, Date:1558232053, Tokyo -> Bangkok </option>
+              <option value="ANA007">ANA007 => Airline:ANA, Date:1558232053, Tokyo -> Kuala Lumpur</option>
+              <option value="ANA008">ANA008 => Airline:ANA, Date:1558232053, Tokyo -> Paris </option>
+              <option value="ANA009">ANA009 => Airline:ANA, Date:1558232053, Tokyo -> London </option>
+              <option value="ANA010">ANA010 => Airline:ANA, Date:1558232053, Tokyo -> Palau </option>
             </select>
         </div>
         <div class="row top-20">
-           <btn class="btn btn-primary" id="buy-flight">Buy</btn>
+           <btn class="btn btn-primary" id="book-flight">Book</btn>
         </div>
 
         <div class="row top-20">
@@ -119,13 +131,13 @@
               <option value="ANA001">ANA001 => Airline:ANA, Date:1558232053, Tokyo -> Beijing </option>
               <option value="ANA002">ANA002 => Airline:ANA, Date:1558232053, Tokyo -> Soul </option>
               <option value="ANA003">ANA003 => Airline:ANA, Date:1558232053, Tokyo -> Macau </option>
-              <option value="ANA003">ANA004 => Airline:ANA, Date:1558232053, Tokyo -> HongKong </option>
-              <option value="ANA003">ANA005 => Airline:ANA, Date:1558232053, Tokyo -> Manila </option>
-              <option value="ANA003">ANA006 => Airline:ANA, Date:1558232053, Tokyo -> Bangkok </option>
-              <option value="ANA003">ANA007 => Airline:ANA, Date:1558232053, Tokyo -> Kuala Lumpur</option>
-              <option value="ANA003">ANA008 => Airline:ANA, Date:1558232053, Tokyo -> Paris </option>
-              <option value="ANA003">ANA009 => Airline:ANA, Date:1558232053, Tokyo -> London </option>
-              <option value="ANA003">ANA010 => Airline:ANA, Date:1558232053, Tokyo -> Palau </option>
+              <option value="ANA004">ANA004 => Airline:ANA, Date:1558232053, Tokyo -> HongKong </option>
+              <option value="ANA005">ANA005 => Airline:ANA, Date:1558232053, Tokyo -> Manila </option>
+              <option value="ANA006">ANA006 => Airline:ANA, Date:1558232053, Tokyo -> Bangkok </option>
+              <option value="ANA007">ANA007 => Airline:ANA, Date:1558232053, Tokyo -> Kuala Lumpur</option>
+              <option value="ANA008">ANA008 => Airline:ANA, Date:1558232053, Tokyo -> Paris </option>
+              <option value="ANA009">ANA009 => Airline:ANA, Date:1558232053, Tokyo -> London </option>
+              <option value="ANA010">ANA010 => Airline:ANA, Date:1558232053, Tokyo -> Palau </option>
             </select>
         </div>
         <div class="row top-20">

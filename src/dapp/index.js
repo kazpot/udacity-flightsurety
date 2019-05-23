@@ -45,14 +45,18 @@ import './flightsurety.css';
             });
         });
 
-        DOM.elid('buy-flight').addEventListener('click', () => {
+        DOM.elid('book-flight').addEventListener('click', () => {
             let index = DOM.elid('flight-select').selectedIndex;
             let flight = DOM.elid('flight-select').options[index].text;
-            contract.buyTicket(flight, (error, result) => {
-                display('Airline', 'Buy Ticket', [ { label: 'Buy Ticket', error: error, value: 'success'} ]);
+
+            let indexInsurance = DOM.elid('insurance-select').selectedIndex;
+            let insuranceAmount = DOM.elid('insurance-select').options[indexInsurance].text;
+
+            contract.bookFlight(flight, insuranceAmount, (error, result) => {
+                display('Airline', 'Book Flight', [ { label: 'Book Flight', error: error, value: 'success'} ]);
             });
         });
-    
+
         DOM.elid('submit-oracle').addEventListener('click', () => {
             let index = DOM.elid('flight-select').selectedIndex;
             let flight = DOM.elid('flight-select').options[index].text;
