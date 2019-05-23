@@ -69,7 +69,8 @@ export default class Contract {
 
     submitFund(callback) {
         let self = this;
-        let fee = this.web3.utils.toWei('10', 'ether');
+
+        let fee = self.web3.utils.toWei('10', 'ether');
         self.flightSuretyApp.methods
             .fund()
             .send({from: self.firstAirline, value: fee}, (error, result) => {
@@ -78,10 +79,11 @@ export default class Contract {
     }
 
     registerFlight(flight, callback) {
-        let price = web3.utils.toWei('0.5', 'ether');
+        let self = this;
+
+        let price = self.web3.utils.toWei('0.5', 'ether');
         let timestamp = 1558232053;
 
-        let self = this;
         self.flightSuretyApp.methods
             .registerFlight(flight, price, timestamp)
             .send({from: self.firstAirline, gas: "220000"}, (error, result) => {
@@ -89,13 +91,12 @@ export default class Contract {
             });
     }
 
-    buyTicket(flight, callback) {
-        let timestamp = 1558232053;
-        
-        // 0.5 for ticket pice and 0.1 for insurance
-        let price = web3.utils.toWei('0.6', 'ether');
-
+    bookFlight(flight, insuranceAmount, callback) {
         let self = this;
+
+        let timestamp = 1558232053;
+        let price = self.web3.utils.toWei(insuranceAmount, 'ether');
+
         self.flightSuretyApp.methods
             .buy(self.firstAirline, flight, timestamp, price)
             .send({from: self.passenger, gas: "220000"}, (error, result) => {
